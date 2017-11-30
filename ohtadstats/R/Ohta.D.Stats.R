@@ -34,7 +34,7 @@
 #' 
 #' @param index Vector of column names for which Ohta's D Statistics will be computed
 #' @param sub Matrix containing genotype data with individuals or lines as rows and loci as columns
-#' @param out String "freq", "manip1", or "manip2", indicating the desired output f allele frequencies
+#' 
 #' 
 #' @return nPops Number of subpopulations present in the data set
 #' @return D2it Measure of the correlation of the alleles at the specified loci
@@ -43,8 +43,8 @@
 #' @return Dp2is Correlation of alleles at the specified loci relative to their expected correlation in the total population
 #' 
 #' @examples
-#' load('Genotype_Matrix.Robj')
-#' Ohta.D.Stats(c("AX-75404505","AX-75404544"), gen)
+#' data('genotypes.rda')
+#' Ohta.D.Stats(c("AX-75404505","AX-75404544"), genotypes)
 #' 
 #' @export
 #'

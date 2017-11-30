@@ -10,8 +10,6 @@ Ohta.D.Stats(index, sub)
 \item{index}{Vector of column names for which Ohta's D Statistics will be computed}
 
 \item{sub}{Matrix containing genotype data with individuals or lines as rows and loci as columns}
-
-\item{out}{String "freq", "manip1", or "manip2", indicating the desired output f allele frequencies}
 }
 \value{
 nPops Number of subpopulations present in the data set
@@ -28,7 +26,7 @@ Dp2is Correlation of alleles at the specified loci relative to their expected co
 Implements Ohta's D statistics for a pair of loci
 }
 \examples{
-load('Genotype_Matrix.Robj')
-Ohta.D.Stats(c("AX-75404505","AX-75404544"), gen)
+data('genotypes.rda')
+Ohta.D.Stats(c("AX-75404505","AX-75404544"), genotypes)
 
 }
