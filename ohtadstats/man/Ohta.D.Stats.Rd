@@ -25,8 +25,3 @@ Dp2is Correlation of alleles at the specified loci relative to their expected co
 \description{
 Implements Ohta's D statistics for a pair of loci
 }
-\examples{
-data('genotypes.rda')
-Ohta.D.Stats(c("AX-75404505","AX-75404544"), genotypes)
-
-}

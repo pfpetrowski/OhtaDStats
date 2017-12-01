@@ -1,33 +1,3 @@
-########################################################################
-### This script house a function that can be used to compute Ohta's  ###
-### 1982 D statistics.                                               ###
-########################################################################
-
-### Timothy M. Beissinger
-
-### Citation: Beissinger, T. M., Gholami, M., Erbe, M., et al. (2015). Using the
-### variability of linkage disequilibrium between subpopulations to infer sweeps
-### and epistatic selection in a diverse panel of chickens. Heredity.    
-### doi: 10.1038/hdy.2015.81      
-
-####################################################################################################
-########################### All-In-One #############################################################
-####################################################################################################
-
-### The input for this function is a matrix of genotypes, coded 0, 1, or 2. (AA, AB, or BB)
-### Row names are breed/population identifiers. NA values should be coded as NA.
-### The index parameter is a two element vector in the form c(col1, col2) that specifies
-### between which columns D stats should be computed.    
-### Output is a vector of Ohta's D statistics, in the following order  :
-### D2it; D2is D2st; Dp2st; Dp2is
-
-### NOTE: THE BELOW FILTERS TO REMOVE ANY COMBINATIONS FROM ANALYSIS FOR WHICH BOTH LOCI DO NOT HAVE ALLELE FREQUENCY >= 0.1
-### NOTE: THE BELOW FILTERS TO REMOVE ANY POPS FROM ANALYSIS THAT DO NOT HAVE ALLELE FREQUENCY AT LEAST 0.05
-
-
-
-
-### Begin Roxygen2 Commenting ###
 #' Tomoka Ohta's D Statistics
 #' 
 #' Implements Ohta's D statistics for a pair of loci
@@ -42,14 +12,8 @@
 #' @return Dp2st Variance of LD for the total population computed over alleles only
 #' @return Dp2is Correlation of alleles at the specified loci relative to their expected correlation in the total population
 #' 
-#' @examples
-#' data('genotypes.rda')
-#' Ohta.D.Stats(c("AX-75404505","AX-75404544"), genotypes)
 #' 
 #' @export
-#'
-
-
 Ohta.D.Stats <- function(index,sub){
     sub <- sub[,c(index[1],index[2])]
     if(mean(sub[,1],na.rm=T)>=0.2 & mean(sub[,2],na.rm=T)>=0.2 & mean(sub[,1],na.rm=T)<=1.8 & mean(sub[,2],na.rm=T)<=1.8){
@@ -167,3 +131,31 @@ else{
 }
 return(c(nPops, D2it, D2is, D2st, Dp2st, Dp2is))
 }
+
+
+
+########################################################################
+### This script house a function that can be used to compute Ohta's  ###
+### 1982 D statistics.                                               ###
+########################################################################
+
+### Timothy M. Beissinger
+
+### Citation: Beissinger, T. M., Gholami, M., Erbe, M., et al. (2015). Using the
+### variability of linkage disequilibrium between subpopulations to infer sweeps
+### and epistatic selection in a diverse panel of chickens. Heredity.    
+### doi: 10.1038/hdy.2015.81      
+
+####################################################################################################
+########################### All-In-One #############################################################
+####################################################################################################
+
+### The input for this function is a matrix of genotypes, coded 0, 1, or 2. (AA, AB, or BB)
+### Row names are breed/population identifiers. NA values should be coded as NA.
+### The index parameter is a two element vector in the form c(col1, col2) that specifies
+### between which columns D stats should be computed.    
+### Output is a vector of Ohta's D statistics, in the following order  :
+### D2it; D2is D2st; Dp2st; Dp2is
+
+### NOTE: THE BELOW FILTERS TO REMOVE ANY COMBINATIONS FROM ANALYSIS FOR WHICH BOTH LOCI DO NOT HAVE ALLELE FREQUENCY >= 0.1
+### NOTE: THE BELOW FILTERS TO REMOVE ANY POPS FROM ANALYSIS THAT DO NOT HAVE ALLELE FREQUENCY AT LEAST 0.05
