@@ -3,8 +3,9 @@
 #' Implements Ohta's D statistics for a pair of loci
 #' 
 #' @param index Vector of column names for which Ohta's D Statistics will be computed
-#' @param sub Matrix containing genotype data with individuals or lines as rows and loci as columns
-#' 
+#' @param data_set Matrix containing genotype data with individuals or lines as rows and loci as columns
+#' @param tot_maf Minimum frequency a polymorphism must have in the total population in order to be included in analysis
+#' @param pop_maf Minimum frequency a polymorphism must have in a subpopulation in order for that subpopulation to be included in analysis
 #' 
 #' @return nPops Number of subpopulations present in the data set
 #' @return D2it Measure of the correlation of the alleles at the specified loci
@@ -14,29 +15,33 @@
 #' 
 #' 
 #' @export
-Ohta.D.Stats <- function(index,sub){
-    sub <- sub[,c(index[1],index[2])]
-    if(mean(sub[,1],na.rm=T)>=0.2 & mean(sub[,2],na.rm=T)>=0.2 & mean(sub[,1],na.rm=T)<=1.8 & mean(sub[,2],na.rm=T)<=1.8){
-        freqs1 <- unlist(by(sub[,1],rownames(sub),mean,na.rm=T))  # unlist/by appears to do the same thing as tapply
-        freqs2 <- unlist(by(sub[,2],rownames(sub),mean,na.rm=T))
-        rm <- c(names(freqs1)[which(freqs1<0.1 | freqs1>1.9)], names(freqs2)[which(freqs2<0.1 | freqs2>1.9)])
-        if(length(rm)>0) sub <- sub[-which(rownames(sub)%in%rm),]
-        if(nrow(sub)>0){
+Ohta.D.Stats <- function(index, data_set, tot_maf = 0.1, pop_maf = 0.05){
+    tot_maf = tot_maf * 2
+    pop_maf = pop_maf * 2
+    tot_max_thresh = 2 - tot_maf
+    pop_max_thresh = 2 - pop_maf 
+    geno <- data_set[,c(index[1],index[2])]
+    if(mean(geno[,1],na.rm=T)>=tot_maf & mean(geno[,2],na.rm=T)>=tot_maf & mean(geno[,1],na.rm=T)<=tot_max_thresh & mean(geno[,2],na.rm=T)<=tot_max_thresh){
+        freqs1 <- unlist(by(geno[,1],rownames(geno),mean,na.rm=T))  # unlist/by appears to do the same thing as tapply
+        freqs2 <- unlist(by(geno[,2],rownames(geno),mean,na.rm=T))
+        rm <- c(names(freqs1)[which(freqs1<pop_maf | freqs1>pop_max_thresh)], names(freqs2)[which(freqs2<pop_maf | freqs2>pop_max_thresh)])
+        if(length(rm)>0) geno <- geno[-which(rownames(geno)%in%rm),]
+        if(nrow(geno)>0){
             # Count number of pops
-            nPops <- length(table(rownames(sub)))
+            nPops <- length(table(rownames(geno)))
         
-            T <- function(sub){ ### T is a function to compute Tij.s, for any specific subpopulation.
-                sub <- sub[which(is.na(sub[,1])==F & is.na(sub[,2])==F),] #Remove any rows with NA values
-                length <- nrow(sub)
-                s.00 <- length(which(sub[,1]==0 & sub[,2]==0))  # Getting haplotype counts for the designated loci
-                s.01 <- length(which(sub[,1]==0 & sub[,2]==1))
-                s.02 <- length(which(sub[,1]==0 & sub[,2]==2))
-                s.10 <- length(which(sub[,1]==1 & sub[,2]==0))
-                s.11 <- length(which(sub[,1]==1 & sub[,2]==1))
-                s.12 <- length(which(sub[,1]==1 & sub[,2]==2))
-                s.20 <- length(which(sub[,1]==2 & sub[,2]==0))
-                s.21 <- length(which(sub[,1]==2 & sub[,2]==1))
-                s.22 <- length(which(sub[,1]==2 & sub[,2]==2))
+            T <- function(geno){ ### T is a function to compute Tij.s, for any specific subpopulation.
+                geno <- geno[which(is.na(geno[,1])==F & is.na(geno[,2])==F),] #Remove any rows with NA values
+                length <- nrow(geno)
+                s.00 <- length(which(geno[,1]==0 & geno[,2]==0))  # Getting haplotype counts for the designated loci
+                s.01 <- length(which(geno[,1]==0 & geno[,2]==1))
+                s.02 <- length(which(geno[,1]==0 & geno[,2]==2))
+                s.10 <- length(which(geno[,1]==1 & geno[,2]==0))
+                s.11 <- length(which(geno[,1]==1 & geno[,2]==1))
+                s.12 <- length(which(geno[,1]==1 & geno[,2]==2))
+                s.20 <- length(which(geno[,1]==2 & geno[,2]==0))
+                s.21 <- length(which(geno[,1]==2 & geno[,2]==1))
+                s.22 <- length(which(geno[,1]==2 & geno[,2]==2))
                 T00 <- (2 * s.00 + s.01 + s.10 + 0.5 * s.11)/length  # Measure of homozygosity? Should talk to Tim. 
                 T02 <- (2 * s.02 + s.01 + s.12 + 0.5 * s.11)/length  # I don't think it measures how often A & B appear in the same gamete.
                 T20 <- (2 * s.20 + s.10 + s.21 + 0.5 * s.11)/length
@@ -45,12 +50,12 @@ Ohta.D.Stats <- function(index,sub){
             }
           
         
-            P <- function(sub,out){
-                sub <- sub[which(is.na(sub[,1])==F & is.na(sub[,2])==F),]
-                length <- nrow(sub)
-                p1.0 <- 1-sum(sub[,1],na.rm=T)/(2*length)
+            P <- function(geno,out){
+                geno <- geno[which(is.na(geno[,1])==F & is.na(geno[,2])==F),]
+                length <- nrow(geno)
+                p1.0 <- 1-sum(geno[,1],na.rm=T)/(2*length)
                 p1.2 <- 1-p1.0
-                p2.0 <- 1-sum(sub[,2],na.rm=T)/(2*length)
+                p2.0 <- 1-sum(geno[,2],na.rm=T)/(2*length)
                 p2.2 <- 1-p2.0
                 if(out=="freq")  return(c(p1.0, p1.2, p2.0, p2.2))
                 if(out=="manip1") return(c(2*p1.0*p2.0, 2*p1.0*p2.2, 2*p1.2*p2.0, 2*p1.2*p2.2))
@@ -58,23 +63,23 @@ Ohta.D.Stats <- function(index,sub){
             } #P returns allele frequencies or manipulated frequencies
         
             ### Compute Tijs
-            Tijs <- by(sub,rownames(sub),T)
+            Tijs <- by(geno,rownames(geno),T)
             Tijs.n <- as.numeric(unlist(Tijs))
             
             ### Compute P manipulated1
-            P1m <-  by(sub,rownames(sub),P,"manip1")
+            P1m <-  by(geno,rownames(geno),P,"manip1")
             P1m.n <- as.numeric(unlist(P1m))
             
             ### Compute P manipulated2
-            P2m <-  by(sub,rownames(sub),P,"manip2")
+            P2m <-  by(geno,rownames(geno),P,"manip2")
             P2m.n <- as.numeric(unlist(P2m))
             
             ### Compute P freq
-            Pf <- by(sub,rownames(sub),P,"freq")
+            Pf <- by(geno,rownames(geno),P,"freq")
             Pf.n <- as.numeric(unlist(Pf))
             
             ### Compute n.pops
-            n.pops <- length(levels(as.factor(rownames(sub))))
+            n.pops <- length(levels(as.factor(rownames(geno))))
             
             ### Compute D2is
             D2is <- sum((Tijs.n-P1m.n)^2)/n.pops
@@ -156,5 +161,5 @@ return(c(nPops, D2it, D2is, D2st, Dp2st, Dp2is))
 ### Output is a vector of Ohta's D statistics, in the following order  :
 ### D2it; D2is D2st; Dp2st; Dp2is
 
-### NOTE: THE BELOW FILTERS TO REMOVE ANY COMBINATIONS FROM ANALYSIS FOR WHICH BOTH LOCI DO NOT HAVE ALLELE FREQUENCY >= 0.1
-### NOTE: THE BELOW FILTERS TO REMOVE ANY POPS FROM ANALYSIS THAT DO NOT HAVE ALLELE FREQUENCY AT LEAST 0.05
+### NOTE: THE FILTERS REMOVE ANY COMBINATIONS FROM ANALYSIS FOR WHICH BOTH LOCI DO NOT HAVE ALLELE FREQUENCY >= 0.1
+### NOTE: THE FILTERS REMOVE ANY POPS FROM ANALYSIS THAT DO NOT HAVE ALLELE FREQUENCY AT LEAST 0.05
