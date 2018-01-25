@@ -1,14 +1,18 @@
 #' Heatmap Plot
 #' 
-#' Displays results of a D statistic scan as a heatmap.
+#' Plots a matrix of D statistics, output from dwrapper, as a heatmap.
 #' 
-#' @param d_matrix A matrix of D statistics, given by the output of dwrapper.
-#' @param colors A color vector. Optionally modify the color scheme of the heatmap. If mode = 'binned', must be of length 5.
-#' @param mode A string indicating desired mode. Use "linear" for most applications including use on base D statistic matrices.
-#' For either of the ratio matrices, 'truncated' is most appropriate, though "binned" may be used if you would prefer a more
-#' discreet distribution of colors.
+#' @param d_matrix A matrix of D statistics or a matrix of D statistic ratios. 
+#' @param colors An optional color vector. Optionally modify the color scheme of the heatmap. If mode = 'binned', must be of length 5.
+#' @param mode A string indicating desired coloring scheme. The option "linear" scales
+#' colors linearly, "truncated" truncates values greater than 1, and "binned" returns
+#' a discretedistribution of colors.
 #' 
 #' @return A color plot
+#'
+#' @details
+#' The d_matrix input should be one of the matrices output by dwrapper. Options are d2it_mat, d2is_mat, d2st_mat, dp2st_mat, dp2is_mat, npops_mat, ratio1, and ratio2.
+#' More customized plots can be developed using the "levelplot" package.
 #' 
 #' @export
 dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblue", "black"), mode = "linear"){
