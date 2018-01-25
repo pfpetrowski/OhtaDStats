@@ -2,17 +2,31 @@
 #' 
 #' Implements Ohta's D statistics for a pair of loci
 #' 
-#' @param index Vector of column names for which Ohta's D Statistics will be computed
-#' @param data_set Matrix containing genotype data with individuals or lines as rows and loci as columns
-#' @param tot_maf Minimum frequency a polymorphism must have in the total population in order to be included in analysis
-#' @param pop_maf Minimum frequency a polymorphism must have in a subpopulation in order for that subpopulation to be included in analysis
+#' @param index A two-element vector of column names or numbers for which
+#' Ohta's D Statistics will be computed.
+#' @param data_set Matrix containing genotype data with individuals as rows and
+#' loci as columns. Genotypes should be coded as 0 (homozygous), 1 (heterozygous),
+#' or 2 (homozygous). Rownames must be subpopulation names and column names
+#' should be marker names.
+#' @param tot_maf Minimum minor allele frequency across the total population
+#' for a marker to be included in the analysis.
+#' @param pop_maf Minimum minor allele frequency across a subpopulation for
+#' that subpopulation to be included in analysis.
 #' 
-#' @return nPops Number of subpopulations present in the data set
-#' @return D2it Measure of the correlation of the alleles at the specified loci
-#' @return D2is Expected variance of LD in all subpopulations
-#' @return Dp2st Variance of LD for the total population computed over alleles only
-#' @return Dp2is Correlation of alleles at the specified loci relative to their expected correlation in the total population
-#' 
+#' @return nPops Number of subpopulations used for computation, after filtering.
+#' @return D2it A measure of the correlation of alleles at two loci on the same
+#' gametes in a subpopulation relative to their expectation according to allele
+#' frequencies in the total population.
+#' @return D2is Expected variance of LD for subpopulations.
+#' @return D2st Expected correlation of alleles in a subpopulation relative to their
+#' expected correlation in the total population.
+#' @return Dp2st Variance of LD for the total population computed over alleles only.
+#' @return Dp2is Correlation of alleles at two loci on the same gamete in subpopulations
+#' relative to their expected correlation in the total population.
+#'
+#' @references
+#' Beissinger et al. (2016) Heredity. (https://www.nature.com/articles/hdy201581)
+#' Ohta. (1982) Proc. Natl. Acad. Science. (http://www.pnas.org/content/79/6/1940)
 #' 
 #' @export
 ohtadstat <- function(index, data_set, tot_maf = 0.1, pop_maf = 0.05){
