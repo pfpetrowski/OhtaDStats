@@ -7,16 +7,30 @@
 dwrapper(data_set, tot_maf = 0.1, pop_maf = 0.05)
 }
 \arguments{
-\item{data_set}{Matrix containing genotype data with individuals or lines as rows and loci as columns}
+\item{data_set}{Matrix containing genotype data with individuals as rows and
+loci as columns. Genotypes should be coded as 0 (homozygous), 1 (heterozygous),
+or 2 (homozygous). Rownames must be subpopulation names and column names
+should be marker names.}
 
-\item{tot_maf}{Minimum frequency each polymorphism must have in the total population in order to be included in analysis}
+\item{tot_maf}{Minimum minor allele frequency across the total population for
+a marker to be included in the analysis.}
 
-\item{pop_maf}{Minimum frequency each polymorphism must have in a subpopulation in order for that subpopulation to be included in analysis}
+\item{pop_maf}{Minimum minor allele frequency across a subpopulation for
+that subpopulation to be included in analysis.}
 }
 \value{
-A list of matrices containing the pairwise comparisons for each D statistic. Also included is the number of subpopulations evaluated in
-each comparison and the ratio of d2is_mat to d2st_mat (ratio1) and dp2st_mat to dp2is_mat (ratio2).
+A list of matrices containing the pairwise comparisons for each D statistic.
+Also included is the number of subpopulations evaluated in each comparison
+and the ratio of d2is_mat to d2st_mat (ratio1) and dp2st_mat to dp2is_mat (ratio2).
 }
 \description{
-Pairwise computation of Ohta's D Statistics for each polymorphism in a given dataset
+Pairwise computation of Ohta's D Statistics for each pair of polymorphisms in
+a given dataset
+}
+\details{
+This wrapper implements the ohtadstat function for all pairs of loci in a genotype
+matrix. If the input matrix includes n loci, choose(n,2) pairs are evaluated. Therefore,
+the computaiton time scales quadratically, and is not feasible for large datasets.
+In we suggest manual parallelization across computational nodes for a large-scale
+(ie thousands of markers) implementation.
 }

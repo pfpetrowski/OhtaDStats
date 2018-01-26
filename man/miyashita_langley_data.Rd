@@ -9,8 +9,9 @@
 data(miyashita_langley_data)
 }
 \description{
-Genotype data obtained from Miyashita & Langley (1988). A matrix representing 85 loci in 64 individuals. Individuals are in rows. 
-Rownames are "RL", "TX", or "FK", indicating the population from which the sample was taken.
+Genotype data obtained from Miyashita & Langley (1988). A matrix representing 85 loci
+in 64 individuals. Individuals are in rows. Rownames "RL", "TX", or "FK", indicate
+the subpopulation from which the sample was taken.
 }
 \references{
 Miyashita & Langley (1988) Genetics 120:199-212
