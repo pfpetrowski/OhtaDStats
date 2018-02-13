@@ -7,6 +7,7 @@
 #' @param mode A string indicating desired coloring scheme. The option "linear" scales
 #' colors linearly, "truncated" truncates values greater than 1, and "binned" returns
 #' a discretedistribution of colors.
+#' @param nbins An integer specifying the number of bins to be used. Only relevent if mode is "binned".
 #' 
 #' @return A color plot
 #'
@@ -15,29 +16,42 @@
 #' More customized plots can be developed using the "levelplot" package.
 #' 
 #' @export
-dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblue", "black"), mode = "linear"){
+dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblue", "black"), mode = "linear", nbins = 5){
   if (mode == 'linear'){
     heatmaps <- lattice::levelplot(d_matrix,
                           col.regions = colorRampPalette(colors),
-                          space = "rgb")
+                          space = "rgb",
+                          xlab = "Marker", ylab = "Marker",
+                          scales = list(x = list(rot=90)))
   }
   else if (mode == 'truncated'){
     d_matrix[which(d_matrix > 1)] <- 1
     heatmaps <- lattice::levelplot(d_matrix,
                           col.regions = colorRampPalette(colors),
-                          space = "rgb", 
+                          space = "rgb",
+                          xlab = "Marker", ylab = "Marker",
+                          scales = list(x = list(rot=90)),
                           colorkey=list(space="right", col=colors, at=c(0,0.25,0.5,0.75,1,1.1), labels=c("0","0.25","0.5","0.75","1",">1.0")))
   }
-  else if (mode == 'binned'){
-    if (length(colors) == 5){
+  else if (mode == 'binned'){ # Modify to use the 'cuts' attribute
+    if (length(colors) >= nbins){
     d_matrix[which(d_matrix > 1)] <- 2
+    dmax <- max(d_matrix[which(d_matrix != Inf)], na.rm = TRUE)
     heatmaps <- lattice::levelplot(d_matrix,
-                          col.regions = c(rep(colors[1], 25), rep(colors[2], 25), rep(colors[3], 25), rep(colors[4], 25), rep(colors[5], 25)),
+                          #col.regions = c(rep(colors[1], 25), rep(colors[2], 25), rep(colors[3], 25), rep(colors[4], 25), rep(colors[5], 25)),
+                          col.regions = colorRampPalette(colors),
                           space = 'rgb',
-                          colorkey=list(space="right", col=colors, at=c(0,0.25,0.5,0.75,1,1.1), labels=c("0","0.25","0.5","0.75","1",">1.0")))
+                          xlab = "Marker", ylab = "Marker",
+                          scales = list(x = list(rot=90)),
+                          cuts = nbins - 1,
+                          #colorkey=list(space="right", col=colors, at=c(0,0.25,0.5,0.75,1,1.1), labels=c("0","0.25","0.5","0.75","1",">1.0"))
+                          colorkey = list(space = "right",
+                                          col = colors, 
+                                          at = seq(from = 0, to = dmax, by = dmax/nbins),
+                                          labels = as.character(seq(from = 0, to = dmax, by = dmax/nbins))))
     }
     else{
-      stop('colors must be of length 5.')
+      stop('Color vector must be greater than or equal to the desired number of bins.')
     }
   }
   else {

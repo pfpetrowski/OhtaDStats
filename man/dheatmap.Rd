@@ -5,7 +5,7 @@
 \title{Heatmap Plot}
 \usage{
 dheatmap(d_matrix, colors = c("white", "lightblue", "blue", "darkblue",
-  "black"), mode = "linear")
+  "black"), mode = "linear", nbins = 5)
 }
 \arguments{
 \item{d_matrix}{A matrix of D statistics or a matrix of D statistic ratios.}
@@ -15,6 +15,8 @@ dheatmap(d_matrix, colors = c("white", "lightblue", "blue", "darkblue",
 \item{mode}{A string indicating desired coloring scheme. The option "linear" scales
 colors linearly, "truncated" truncates values greater than 1, and "binned" returns
 a discretedistribution of colors.}
+
+\item{nbins}{An integer specifying the number of bins to be used. Only relevent if mode is "binned".}
 }
 \value{
 A color plot
