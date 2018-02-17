@@ -7,7 +7,7 @@
 #' @param mode A string indicating desired coloring scheme. The option "linear" scales
 #' colors linearly, "truncated" truncates values greater than 1, and "binned" returns
 #' a discretedistribution of colors.
-#' @param axis.labels A logical indicating whether or not marker labels should be drawn. 
+#' @param tick.labels A logical indicating whether or not marker labels should be drawn. 
 #' @param nbins An integer specifying the number of bins to be used. Only relevent if mode is "binned".
 #' 
 #' @return A color plot
@@ -17,13 +17,13 @@
 #' More customized plots can be developed using the "levelplot" package.
 #' 
 #' @export
-dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblue", "black"), mode = "linear", axis.labels = TRUE, nbins = 5){
+dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblue", "black"), mode = "linear", tick.labels = TRUE, nbins = 5){
   if (mode == 'linear'){
     heatmaps <- lattice::levelplot(d_matrix,
                           col.regions = colorRampPalette(colors),
                           space = "rgb",
                           xlab = "Marker", ylab = "Marker",
-                          scales = list(x = list(rot=90), draw = axis.labels))
+                          scales = list(x = list(rot=90), draw = tick.labels))
   }
   else if (mode == 'truncated'){
     d_matrix[which(d_matrix > 1)] <- 1
@@ -31,7 +31,7 @@ dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblu
                           col.regions = colorRampPalette(colors),
                           space = "rgb",
                           xlab = "Marker", ylab = "Marker",
-                          scales = list(x = list(rot=90), draw = axis.labels),
+                          scales = list(x = list(rot=90), draw = tick.labels),
                           colorkey=list(space="right", col=colors, at=c(0,0.25,0.5,0.75,1,1.1), labels=c("0","0.25","0.5","0.75","1",">1.0")))
   }
   else if (mode == 'binned'){ # Modify to use the 'cuts' attribute
@@ -43,7 +43,7 @@ dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblu
                           col.regions = colorRampPalette(colors),
                           space = 'rgb',
                           xlab = "Marker", ylab = "Marker",
-                          scales = list(x = list(rot=90), draw = axis.labels),
+                          scales = list(x = list(rot=90), draw = tick.labels),
                           cuts = nbins - 1,
                           #colorkey=list(space="right", col=colors, at=c(0,0.25,0.5,0.75,1,1.1), labels=c("0","0.25","0.5","0.75","1",">1.0"))
                           colorkey = list(space = "right",

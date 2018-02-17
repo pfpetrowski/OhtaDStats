@@ -5,7 +5,7 @@
 \title{Heatmap Plot}
 \usage{
 dheatmap(d_matrix, colors = c("white", "lightblue", "blue", "darkblue",
-  "black"), mode = "linear", axis.labels = TRUE, nbins = 5)
+  "black"), mode = "linear", tick.labels = TRUE, nbins = 5)
 }
 \arguments{
 \item{d_matrix}{A matrix of D statistics or a matrix of D statistic ratios.}
@@ -16,7 +16,7 @@ dheatmap(d_matrix, colors = c("white", "lightblue", "blue", "darkblue",
 colors linearly, "truncated" truncates values greater than 1, and "binned" returns
 a discretedistribution of colors.}
 
-\item{axis.labels}{A logical indicating whether or not marker labels should be drawn.}
+\item{tick.labels}{A logical indicating whether or not marker labels should be drawn.}
 
 \item{nbins}{An integer specifying the number of bins to be used. Only relevent if mode is "binned".}
 }
