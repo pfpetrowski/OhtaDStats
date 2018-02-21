@@ -28,6 +28,10 @@
 #' Beissinger et al. (2016) Heredity. (https://www.nature.com/articles/hdy201581)
 #' Ohta. (1982) Proc. Natl. Acad. Science. (http://www.pnas.org/content/79/6/1940)
 #' 
+#' @examples
+#' 
+#' ohtadstat(index = c(1,2), data_set = beissinger_data)
+#' 
 #' @export
 ohtadstat <- function(index, data_set, tot_maf = 0.1, pop_maf = 0.05){
     tot_maf = tot_maf * 2

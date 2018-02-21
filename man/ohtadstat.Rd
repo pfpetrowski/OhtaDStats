@@ -41,6 +41,11 @@ relative to their expected correlation in the total population.
 \description{
 Implements Ohta's D statistics for a pair of loci
 }
+\examples{
+
+ohtadstat(index = c(1,2), data_set = beissinger_data)
+
+}
 \references{
 Beissinger et al. (2016) Heredity. (https://www.nature.com/articles/hdy201581)
 Ohta. (1982) Proc. Natl. Acad. Science. (http://www.pnas.org/content/79/6/1940)
