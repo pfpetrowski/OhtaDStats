@@ -29,7 +29,6 @@
 #' Ohta. (1982) Proc. Natl. Acad. Science. (http://www.pnas.org/content/79/6/1940)
 #' 
 #' @examples
-#' 
 #' ohtadstat(index = c(1,2), data_set = beissinger_data)
 #' 
 #' @export

@@ -30,3 +30,8 @@ Plots a matrix of D statistics, output from dwrapper, as a heatmap.
 The d_matrix input should be one of the matrices output by dwrapper. Options are d2it_mat, d2is_mat, d2st_mat, dp2st_mat, dp2is_mat, npops_mat, ratio1, and ratio2.
 More customized plots can be developed using the "levelplot" package.
 }
+\examples{
+ml_results <- dwrapper(miyashita_langley_data)
+dheatmap(ml_results[["d2it_mat"]], mode = 'linear')
+
+}

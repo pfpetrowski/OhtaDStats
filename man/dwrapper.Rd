@@ -34,3 +34,7 @@ the computaiton time scales quadratically, and is not feasible for large dataset
 In we suggest manual parallelization across computational nodes for a large-scale
 (ie thousands of markers) implementation.
 }
+\examples{
+dwrapper(beissinger_data, tot_maf = 0.05, pop_maf = 0.01)
+
+}

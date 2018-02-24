@@ -42,7 +42,6 @@ relative to their expected correlation in the total population.
 Implements Ohta's D statistics for a pair of loci
 }
 \examples{
-
 ohtadstat(index = c(1,2), data_set = beissinger_data)
 
 }

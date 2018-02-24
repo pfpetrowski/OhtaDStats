@@ -23,6 +23,9 @@
 #' In we suggest manual parallelization across computational nodes for a large-scale
 #' (ie thousands of markers) implementation.
 #' 
+#' @examples
+#' dwrapper(beissinger_data, tot_maf = 0.05, pop_maf = 0.01)
+#' 
 #' @export
 dwrapper <- function(data_set, tot_maf = 0.1, pop_maf = 0.05){
   dimnames <- list(colnames(data_set), colnames(data_set))
