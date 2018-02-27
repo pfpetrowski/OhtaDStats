@@ -7,6 +7,7 @@ Description: Calculate's Tomoka Ohta's partitioning of linkage disequilibrium,
 Author: Paul F. Petrowski <pfpetrowski@mail.missouri.edu> & Timothy M. Beissinger <timbeissinger@gmail.com>
 Maintainer: Paul F. Petrowski <pfpetrowski@mail.missouri.edu>
 Imports:
- lattice
+ lattice,
+ grDevices
 License: MIT + file LICENSE
 RoxygenNote: 6.0.1

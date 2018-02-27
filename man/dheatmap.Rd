@@ -32,7 +32,14 @@ More customized plots can be developed using the "levelplot" package.
 }
 \examples{
 data(miyashita_langley_data)
+miyashita_langley_subset <- miyashita_langley_data[,1:15]
+ml_results <- dwrapper(miyashita_langley_subset)
+dheatmap(ml_results[["d2it_mat"]], mode = 'linear')
+
+\dontrun{
+data(miyashita_langley_data)
 ml_results <- dwrapper(miyashita_langley_data)
 dheatmap(ml_results[["d2it_mat"]], mode = 'linear')
+}
 
 }

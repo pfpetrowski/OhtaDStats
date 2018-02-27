@@ -18,14 +18,21 @@
 #' 
 #' @examples
 #' data(miyashita_langley_data)
+#' miyashita_langley_subset <- miyashita_langley_data[,1:15]
+#' ml_results <- dwrapper(miyashita_langley_subset)
+#' dheatmap(ml_results[["d2it_mat"]], mode = 'linear')
+#' 
+#' \dontrun{
+#' data(miyashita_langley_data)
 #' ml_results <- dwrapper(miyashita_langley_data)
 #' dheatmap(ml_results[["d2it_mat"]], mode = 'linear')
+#' }
 #' 
 #' @export
 dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblue", "black"), mode = "linear", tick.labels = TRUE, nbins = 5){
   if (mode == 'linear'){
     heatmaps <- lattice::levelplot(d_matrix,
-                          col.regions = colorRampPalette(colors),
+                          col.regions = grDevices::colorRampPalette(colors),
                           space = "rgb",
                           xlab = "Marker", ylab = "Marker",
                           scales = list(x = list(rot=90), draw = tick.labels))
@@ -33,7 +40,7 @@ dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblu
   else if (mode == 'truncated'){
     d_matrix[which(d_matrix > 1)] <- 1
     heatmaps <- lattice::levelplot(d_matrix,
-                          col.regions = colorRampPalette(colors),
+                          col.regions = grDevices::colorRampPalette(colors),
                           space = "rgb",
                           xlab = "Marker", ylab = "Marker",
                           scales = list(x = list(rot=90), draw = tick.labels),
@@ -44,7 +51,7 @@ dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblu
     d_matrix[which(d_matrix > 1)] <- 2
     dmax <- max(d_matrix[which(d_matrix != Inf)], na.rm = TRUE)
     heatmaps <- lattice::levelplot(d_matrix,
-                          col.regions = colorRampPalette(colors),
+                          col.regions = grDevices::colorRampPalette(colors),
                           space = 'rgb',
                           xlab = "Marker", ylab = "Marker",
                           scales = list(x = list(rot=90), draw = tick.labels),
