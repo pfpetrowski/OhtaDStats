@@ -31,6 +31,7 @@ The d_matrix input should be one of the matrices output by dwrapper. Options are
 More customized plots can be developed using the "levelplot" package.
 }
 \examples{
+data(miyashita_langley_data)
 ml_results <- dwrapper(miyashita_langley_data)
 dheatmap(ml_results[["d2it_mat"]], mode = 'linear')
 

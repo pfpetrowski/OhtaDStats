@@ -35,6 +35,7 @@ In we suggest manual parallelization across computational nodes for a large-scal
 (ie thousands of markers) implementation.
 }
 \examples{
+data(beissinger_data)
 dwrapper(beissinger_data, tot_maf = 0.05, pop_maf = 0.01)
 
 }
