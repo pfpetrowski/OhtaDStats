@@ -35,6 +35,13 @@ In we suggest manual parallelization across computational nodes for a large-scal
 (ie thousands of markers) implementation.
 }
 \examples{
-dwrapper(beissinger_data, tot_maf = 0.05, pop_maf = 0.01)
 
+data(beissinger_data)
+beissinger_subset <- beissinger_data[,1:15]
+dwrapper(beissinger_subset, tot_maf = 0.05, pop_maf = 0.01)
+
+\dontrun{
+data(beissinger_data)
+dwrapper(beissinger_data, tot_maf = 0.05, pop_maf = 0.01)
+}
 }

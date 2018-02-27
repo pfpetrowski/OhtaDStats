@@ -25,10 +25,11 @@
 #' relative to their expected correlation in the total population.
 #'
 #' @references
-#' Beissinger et al. (2016) Heredity. (https://www.nature.com/articles/hdy201581)
+#' Beissinger et al. (2016) Heredity. (https://www.nature.com/articles/hdy201581) &
 #' Ohta. (1982) Proc. Natl. Acad. Science. (http://www.pnas.org/content/79/6/1940)
 #' 
 #' @examples
+#' data(beissinger_data)
 #' ohtadstat(index = c(1,2), data_set = beissinger_data)
 #' 
 #' @export
@@ -152,31 +153,3 @@ ohtadstat <- function(index, data_set, tot_maf = 0.1, pop_maf = 0.05){
     }
 return(c(nPops, D2it, D2is, D2st, Dp2st, Dp2is))
 }
-
-
-
-########################################################################
-### This script house a function that can be used to compute Ohta's  ###
-### 1982 D statistics.                                               ###
-########################################################################
-
-### Timothy M. Beissinger
-
-### Citation: Beissinger, T. M., Gholami, M., Erbe, M., et al. (2015). Using the
-### variability of linkage disequilibrium between subpopulations to infer sweeps
-### and epistatic selection in a diverse panel of chickens. Heredity.    
-### doi: 10.1038/hdy.2015.81      
-
-####################################################################################################
-########################### All-In-One #############################################################
-####################################################################################################
-
-### The input for this function is a matrix of genotypes, coded 0, 1, or 2. (AA, AB, or BB)
-### Row names are breed/population identifiers. NA values should be coded as NA.
-### The index parameter is a two element vector in the form c(col1, col2) that specifies
-### between which columns D stats should be computed.    
-### Output is a vector of Ohta's D statistics, in the following order  :
-### D2it; D2is D2st; Dp2st; Dp2is
-
-### NOTE: THE FILTERS REMOVE ANY COMBINATIONS FROM ANALYSIS FOR WHICH BOTH LOCI DO NOT HAVE ALLELE FREQUENCY >= 0.1
-### NOTE: THE FILTERS REMOVE ANY POPS FROM ANALYSIS THAT DO NOT HAVE ALLELE FREQUENCY AT LEAST 0.05
