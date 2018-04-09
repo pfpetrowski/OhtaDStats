@@ -30,7 +30,7 @@
 #' 
 #' @examples
 #' data(beissinger_data)
-#' ohtadstat(index = c(1,2), data_set = beissinger_data)
+#' ohtadstat(index = c(5,6), data_set = beissinger_data)
 #' 
 #' @export
 ohtadstat <- function(index, data_set, tot_maf = 0.1, pop_maf = 0.05){

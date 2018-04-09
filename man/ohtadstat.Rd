@@ -43,7 +43,7 @@ Implements Ohta's D statistics for a pair of loci
 }
 \examples{
 data(beissinger_data)
-ohtadstat(index = c(1,2), data_set = beissinger_data)
+ohtadstat(index = c(5,6), data_set = beissinger_data)
 
 }
 \references{
