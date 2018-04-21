@@ -30,10 +30,10 @@
 #' 
 #' @examples
 #' data(beissinger_data)
-#' ohtadstat(index = c(5,6), data_set = beissinger_data)
+#' dstat(index = c(5,6), data_set = beissinger_data)
 #' 
 #' @export
-ohtadstat <- function(index, data_set, tot_maf = 0.1, pop_maf = 0.05){
+dstat <- function(index, data_set, tot_maf = 0.1, pop_maf = 0.05){
     tot_maf = tot_maf * 2
     pop_maf = pop_maf * 2
     tot_max_thresh = 2 - tot_maf

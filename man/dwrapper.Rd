@@ -28,7 +28,7 @@ Pairwise computation of Ohta's D Statistics for each pair of polymorphisms in
 a given dataset
 }
 \details{
-This wrapper implements the ohtadstat function for all pairs of loci in a genotype
+This wrapper implements the dstat function for all pairs of loci in a genotype
 matrix. If the input matrix includes n loci, choose(n,2) pairs are evaluated. Therefore,
 the computaiton time scales quadratically, and is not feasible for large datasets.
 In we suggest manual parallelization across computational nodes for a large-scale

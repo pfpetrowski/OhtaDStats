@@ -17,7 +17,7 @@
 #' and the ratio of d2is_mat to d2st_mat (ratio1) and dp2st_mat to dp2is_mat (ratio2).
 #'
 #' @details
-#' This wrapper implements the ohtadstat function for all pairs of loci in a genotype
+#' This wrapper implements the dstat function for all pairs of loci in a genotype
 #' matrix. If the input matrix includes n loci, choose(n,2) pairs are evaluated. Therefore,
 #' the computaiton time scales quadratically, and is not feasible for large datasets.
 #' In we suggest manual parallelization across computational nodes for a large-scale
@@ -44,7 +44,7 @@ dwrapper <- function(data_set, tot_maf = 0.1, pop_maf = 0.05){
   npops_mat <- matrix(NA, nrow = ncol(data_set), ncol = ncol(data_set), dimnames = dimnames)
   for (i in 1:ncol(data_set)){
     for (j in i:ncol(data_set)){
-      d_stats <- ohtadstat(index = c(i,j), data_set = data_set, tot_maf = tot_maf, pop_maf = pop_maf)
+      d_stats <- dstat(index = c(i,j), data_set = data_set, tot_maf = tot_maf, pop_maf = pop_maf)
       d2it_mat[i,j] <- d_stats[2]
       d2is_mat[i,j] <- d_stats[3]
       d2st_mat[i,j] <- d_stats[4]
