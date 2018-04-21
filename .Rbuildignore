@@ -1,0 +1,2 @@
+\*.Rmd		# Markdown files
+\*.tar.gz	# build files
