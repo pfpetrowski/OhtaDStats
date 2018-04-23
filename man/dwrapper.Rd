@@ -25,7 +25,7 @@ and the ratio of d2is_mat to d2st_mat (ratio1) and dp2st_mat to dp2is_mat (ratio
 }
 \description{
 Pairwise computation of Ohta's D Statistics for each pair of polymorphisms in
-a given dataset
+a given dataset.
 }
 \details{
 This wrapper implements the dstat function for all pairs of loci in a genotype

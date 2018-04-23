@@ -1,7 +1,7 @@
 #' Ohta D Statistic Wrapper
 #' 
 #' Pairwise computation of Ohta's D Statistics for each pair of polymorphisms in
-#' a given dataset
+#' a given dataset.
 #' 
 #' @param data_set Matrix containing genotype data with individuals as rows and
 #' loci as columns. Genotypes should be coded as 0 (homozygous), 1 (heterozygous),

@@ -1,6 +1,7 @@
 #' Tomoka Ohta's D Statistics
 #' 
-#' Implements Ohta's D statistics for a pair of loci
+#' Implements Ohta's D statistics for a pair of loci. Statistics are returned in a vector in the following order:
+#' Number of populations, D2it, D2is, D2st, D'2st, D'2is.
 #' 
 #' @param index A two-element vector of column names or numbers for which
 #' Ohta's D Statistics will be computed.
