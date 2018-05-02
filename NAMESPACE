@@ -3,3 +3,4 @@
 export(dheatmap)
 export(dstat)
 export(dwrapper)
+export(parallelprep)
