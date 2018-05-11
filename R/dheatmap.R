@@ -30,7 +30,7 @@
 #' 
 #' @export
 dheatmap <- function(d_matrix, colors = c("white", "lightblue", "blue", "darkblue", "black"), mode = "linear", tick.labels = TRUE, nbins = 5){
-  dmatrix <- t(dmatrix)[dim(dmatrix)[1]:1,]
+  d_matrix <- t(d_matrix)[dim(d_matrix)[1]:1,]
 	if (mode == 'linear'){
     heatmaps <- lattice::levelplot(d_matrix,
                           col.regions = grDevices::colorRampPalette(colors),
