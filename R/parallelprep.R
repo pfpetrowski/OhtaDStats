@@ -10,7 +10,8 @@
 #' data(beissinger_data)
 #' parallelprep(data_set = beissinger_data, outfile = "beissinger_comparisons.txt")
 #' 
-#' @export
+#' 
+#### @export when ready
 parallelprep <- function(data_set, outfile = "ohtacomparisons.txt"){
 	num_comparisons <- (ncol(data_set)*(ncol(data_set)-1))/2 + ncol(data_set)
 	comparisons <- matrix(NA, nrow = num_comparisons, ncol = 2)

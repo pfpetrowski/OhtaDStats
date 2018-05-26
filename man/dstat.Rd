@@ -42,6 +42,10 @@ relative to their expected correlation in the total population.
 Implements Ohta's D statistics for a pair of loci. Statistics are returned in a vector in the following order:
 Number of populations, D2it, D2is, D2st, D'2st, D'2is.
 }
+\details{
+When the loci being evaluated fail to pass the filtering thresholds determined by
+tot_maf and pop_maf, NAs are returned.
+}
 \examples{
 data(beissinger_data)
 dstat(index = c(5,6), data_set = beissinger_data)
