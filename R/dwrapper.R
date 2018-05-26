@@ -15,6 +15,8 @@
 #' @return A list of matrices containing the pairwise comparisons for each D statistic.
 #' Also included is the number of subpopulations evaluated in each comparison
 #' and the ratio of d2is_mat to d2st_mat (ratio1) and dp2st_mat to dp2is_mat (ratio2).
+#' The result of a comparison between marker M and marker N will be found in the Mth row
+#' at the Nth column.
 #'
 #' @details
 #' This wrapper implements the dstat function for all pairs of loci in a genotype

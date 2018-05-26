@@ -25,6 +25,9 @@
 #' @return Dp2is Correlation of alleles at two loci on the same gamete in subpopulations
 #' relative to their expected correlation in the total population.
 #'
+#' @details When the loci being evaluated fail to pass the filtering thresholds determined by
+#' tot_maf and pop_maf, NAs are returned.
+#'
 #' @references
 #' Beissinger et al. (2016) Heredity. (https://www.nature.com/articles/hdy201581) &
 #' Ohta. (1982) Proc. Natl. Acad. Science. (http://www.pnas.org/content/79/6/1940)

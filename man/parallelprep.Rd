@@ -19,4 +19,5 @@ slurm or condor to distribute the tasks among many instances of the dstat functi
 data(beissinger_data)
 parallelprep(data_set = beissinger_data, outfile = "beissinger_comparisons.txt")
 
+
 }
