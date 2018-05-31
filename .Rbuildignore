@@ -1,3 +1,4 @@
 ^OhtaDemo\.Rmd$
 ^ohtadstats_.*\.tar\.gz$
-parallelprep\..*
+dparallel\..*
+dcollect\..*
