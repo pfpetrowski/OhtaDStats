@@ -12,21 +12,21 @@
 #' 
 #' 
 #### @export when ready
-parallelprep <- function(data_set, outfile = "ohtacomparisons.txt"){
-	num_comparisons <- (ncol(data_set)*(ncol(data_set)-1))/2 + ncol(data_set)
-	comparisons <- matrix(NA, nrow = num_comparisons, ncol = 2)
-
-	row = 1
-	for (i in 1:ncol(data_set)){
-		for (j in i:ncol(data_set)){
-			comparisons[row,1] <- i
-			comparisons[row,2] <- j
-			row = row + 1
-  	}
+parallelprep <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job = 1000, job_id = 1, outfile = "ohta"){
+	comparisons <- matrix(NA, nrow = comparisons_per_job, ncol = 2)
+	comparisons[1,] <- determinejob(r = job_id * comparisons_per_job - (comparisons_per_job - 1), n = ncol(data_set))
+	for (i in 2:nrow(comparisons)){
+		a <- comparisons[i-1,][1]
+		b <- comparisons[i-1,][2] + 1
+		if (b > ncol(data_set)){
+			b <- a + 1
+			a <- a + 1
+		}
+		comparisons[i,] <- c(a,b)
 	}
-	write(x = t(comparisons), file = outfile, ncolumns = 2)
+	results <- t(apply(comparisons, MARGIN = 1, dstat, data_set = data_set, tot_maf = tot_maf, pop_maf = pop_maf))
+	return(cbind(comparisons, results))
 }
-
 
 
 
