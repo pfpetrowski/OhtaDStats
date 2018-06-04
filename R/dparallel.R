@@ -19,7 +19,7 @@
 #' 
 #' @export
 dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job, job_id, outfile = "ohta"){
-	# data_set will actually need to be an rda that is loaded in
+	# data_set will need to be an rds that is loaded in
 	comparisons <- matrix(NA, nrow = comparisons_per_job, ncol = 2)
 	comparisons[1,] <- determinejob(r = job_id * comparisons_per_job - (comparisons_per_job - 1), n = ncol(data_set))
 	for (i in 2:nrow(comparisons)){      # Fill in the rest of the comparison matrix.
