@@ -1,4 +1,4 @@
-^OhtaDemo\.Rmd$
-^ohtadstats_.*\.tar\.gz$
-dparallel\..*
-dcollect\..*
+^OhtaDemo\.Rmd$			# Rmarkdown files
+^ohtadstats_.*\.tar\.gz$	# package builds
+dcollect\..*			# Function I'm not ready to release
+^AuxillaryScripts$		# Directory of files that should be visible but not packaged

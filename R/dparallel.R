@@ -1,17 +1,23 @@
-#' Make prep file for parallelization
+#' Compute Ohta's D Statistics in a manner optimized for parallelization
 #' 
-#' Builds a table of pairwise locus comparisons that need to be made. This table can then be used by a workload manager such as 
-#' slurm or condor to distribute the tasks among many instances of the dstat function. 
 #' 
-#' @param data_set The data set that is to be analysed. 
-#' @param outfile The name of the file to save the table to. May also be a path.
+#' Infers the comparisons that this instance of the function is supposed to perform given job_id and comparisons_per_job.
+#' Returns the results of those comparisons to an SQL database.
+#' 
+#' 
+#' @param data_set The data set that is to be analysed.
+#' @param tot_maf Minimum minor allele frequency across the total population for a marker to be included in the analysis.
+#' @param pop_maf Minimum minor allele frequency across a subpopulation for that subpopulation to be included in analysis.
+#' @param comparisons_per_job The number of comparisons that each instance of dparallel will compute.
+#' @param job_id A number indicating that this is the nth instance of this function.
+#' @param outfile Prefix for the file name that results will be written to. Do not include extension.
+#' 
 #' 
 #' @examples 
 #' data(beissinger_data)
-#' parallelprep(data_set = beissinger_data, outfile = "beissinger_comparisons.txt")
+#' parallelprep(data_set = beissinger_data, comparisons_per_job = 1000, job_id = 1, outfile = "beissinger_comparisons")
 #' 
-#' 
-#### @export when ready
+#' @export
 dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job, job_id, outfile = "ohta"){
 	# data_set will actually need to be an rda that is loaded in
 	comparisons <- matrix(NA, nrow = comparisons_per_job, ncol = 2)
