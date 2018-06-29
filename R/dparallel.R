@@ -10,7 +10,7 @@
 #' @param pop_maf Minimum minor allele frequency across a subpopulation for that subpopulation to be included in analysis.
 #' @param comparisons_per_job The number of comparisons that each instance of dparallel will compute.
 #' @param job_id A number indicating that this is the nth instance of this function.
-#' @param outfile Prefix for the file name that results will be written to. Do not include extension.
+#' @param outfile Prefix for the file name that results will be written to. May be a path. Do not include extension.
 #' 
 #' 
 #' @examples 
@@ -18,7 +18,7 @@
 #' parallelprep(data_set = beissinger_data, comparisons_per_job = 1000, job_id = 1, outfile = "beissinger_comparisons")
 #' 
 #' @export
-dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job, job_id, outfile = "ohta"){
+dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job, job_id, outfile = "OhtaJob_"){
 	# data_set will need to be an rds that is loaded in
 	comparisons <- matrix(NA, nrow = comparisons_per_job, ncol = 2)
 	comparisons[1,] <- determinejob(r = job_id * comparisons_per_job - (comparisons_per_job - 1), n = ncol(data_set))
@@ -38,7 +38,8 @@ dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_j
 	results <- t(apply(comparisons, MARGIN = 1, dstat, data_set = data_set, tot_maf = tot_maf, pop_maf = pop_maf))
 	results <- cbind(comparisons, results)
 	colnames(results) <- c('Marker1', 'Marker2', 'nPops', 'D2it', 'D2is', 'D2st', 'Dp2st', 'Dp2is')
-	database <- DBI::dbConnect(drv = RSQLite::SQLite(), dbname = paste(outfile, '.sqlite', sep = ''))     #Open database connection
-	DBI::dbWriteTable(conn = database, name = "OhtasD", value = as.data.frame(results), append = TRUE)    #Dump results into the database
-	DBI::dbDisconnect(database)                                                                           #Disconnect from database
+	#database <- DBI::dbConnect(drv = RSQLite::SQLite(), dbname = paste(outfile, '.sqlite', sep = ''))     #Open database connection
+	#DBI::dbWriteTable(conn = database, name = "OhtasD", value = as.data.frame(results), append = TRUE)    #Dump results into the database
+	#DBI::dbDisconnect(database)                                                                           #Disconnect from database
+	write.csv(results, paste(outfile, as.character(job_id), ".csv", sep = ""))
 }
