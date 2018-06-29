@@ -41,5 +41,5 @@ dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_j
 	#database <- DBI::dbConnect(drv = RSQLite::SQLite(), dbname = paste(outfile, '.sqlite', sep = ''))     #Open database connection
 	#DBI::dbWriteTable(conn = database, name = "OhtasD", value = as.data.frame(results), append = TRUE)    #Dump results into the database
 	#DBI::dbDisconnect(database)                                                                           #Disconnect from database
-	write.csv(results, paste(outfile, as.character(job_id), ".csv", sep = ""))
+	write.csv(results, paste(outfile, as.character(job_id), ".csv", sep = ""), row.names = FALSE)
 }
