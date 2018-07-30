@@ -155,5 +155,5 @@ dstat <- function(index, data_set, tot_maf = 0.1, pop_maf = 0.05){
     else{
         D2it <- NA; D2is <- NA; D2st <- NA; Dp2st <- NA; Dp2is <- NA; nPops <- NA
     }
-return(c(nPops, D2it, D2is, D2st, Dp2st, Dp2is))
+return(round(c(nPops, D2it, D2is, D2st, Dp2st, Dp2is),6))
 }

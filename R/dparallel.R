@@ -18,7 +18,7 @@
 #' parallelprep(data_set = beissinger_data, comparisons_per_job = 1000, job_id = 1, outfile = "beissinger_comparisons")
 #' 
 #' @export
-dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job, job_id, outfile = "OhtaJob_"){
+dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job, job_id, outfile = "Ohta"){
 	# data_set will need to be an rds that is loaded in
 	comparisons <- matrix(NA, nrow = comparisons_per_job, ncol = 2)
 	comparisons[1,] <- determinejob(r = job_id * comparisons_per_job - (comparisons_per_job - 1), n = ncol(data_set))
@@ -41,5 +41,5 @@ dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_j
 	#database <- DBI::dbConnect(drv = RSQLite::SQLite(), dbname = paste(outfile, '.sqlite', sep = ''))     #Open database connection
 	#DBI::dbWriteTable(conn = database, name = "OhtasD", value = as.data.frame(results), append = TRUE)    #Dump results into the database
 	#DBI::dbDisconnect(database)                                                                           #Disconnect from database
-	write.csv(results, paste(outfile, as.character(job_id), ".csv", sep = ""), row.names = FALSE)
+	write.csv(results, paste(outfile, "_", as.character(job_id), ".csv", sep = ""), row.names = FALSE)
 }
