@@ -4,12 +4,12 @@
 
 ### For each of the variables below, remove the comments and insert your own values. ###
 
-#n = 				#Number of jobs to be run 
-#time = 			#Amount of time to allocate to each job. Format is days-hours:minutes (ie 1-02:33 indicates 1 day, 2 hours, and 33 minutes).
-#mem =				#Amount of memory to give each job. 
+n=100			#Number of jobs to be run
+runtime=0-01:00 	#Amount of time to allocate to each job. Format is days-hours:minutes (ie 1-02:33 indicates 1 day, 2 hours, and 33 minutes).
+mem=11G			#Amount of memory to give each job. 
 
 
 for i in `seq 1 n`;
 	do
-		srun -t time --mem-per-cpu mem Rscript parallelohta.R i
+		srun -N 1 -n 1 -t runtime --mem-per-cpu mem Rscript parallelohta.R i
 	done
