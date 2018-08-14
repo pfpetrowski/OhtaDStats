@@ -14,11 +14,27 @@ summary(miyashita_langley_data)
 ```
 
 ## Computation of Ohta's D Statistics for a single Pair of Markers
+If you are interested in computing Ohta's D statistics for a single pair of loci, you can do so by calling the dstat function.
 ```{r}
-ohtadstat(index = c(28,41), data_set = miyashita_langley_data, tot_maf = 0.05, pop_maf = 0.01)
+dstat(index = c(28,41), data_set = miyashita_langley_data, tot_maf = 0.05, pop_maf = 0.01)
 ```
 
-```{r setup, include=FALSE}
+The two loci to be evaluated are passed to the index argument as a two element vector.
+
+
+## Computation of Ohta's D statistics for a small dataset.
+If you have a small dataset and would like to compute Ohta's D statistics for each possible pair of loci, use the dwrapper function.
+
+```{r, include=FALSE}
+dwrapper(data_set = miyashita_langley_data, tot_maf = 0.00, pop_maf = 0.00)
+```
+
+Note that the dwrapper algorithm is big O N-squared. The amount of time required to analyze a dataset with dwrapper will increase dramatically
+with the number of loci. For this reason we recommend not using it except for on datasets less than one thousand loci. Anything larger than that should be evaluated
+using the dparallel workflow as described below.
+
+
+```{r setup, run=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
