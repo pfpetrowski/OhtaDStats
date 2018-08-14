@@ -5,7 +5,7 @@
 \title{Compute Ohta's D Statistics in a manner optimized for parallelization}
 \usage{
 dparallel(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job,
-  job_id, outfile = "ohta")
+  job_id, outfile = "Ohta")
 }
 \arguments{
 \item{data_set}{The data set that is to be analysed.}
@@ -18,7 +18,7 @@ dparallel(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job,
 
 \item{job_id}{A number indicating that this is the nth instance of this function.}
 
-\item{outfile}{Prefix for the file name that results will be written to. Do not include extension.}
+\item{outfile}{Prefix for the file name that results will be written to. May be a path. Do not include extension.}
 }
 \description{
 Infers the comparisons that this instance of the function is supposed to perform given job_id and comparisons_per_job.
@@ -26,6 +26,9 @@ Returns the results of those comparisons to an SQL database.
 }
 \examples{
 data(beissinger_data)
-parallelprep(data_set = beissinger_data, comparisons_per_job = 1000, job_id = 1, outfile = "beissinger_comparisons")
+dparallel(data_set = beissinger_data,
+                     comparisons_per_job = 300,
+                     job_id = 1,
+                     outfile = "beissinger_comparisons")
 
 }

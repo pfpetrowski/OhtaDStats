@@ -15,7 +15,10 @@
 #' 
 #' @examples 
 #' data(beissinger_data)
-#' parallelprep(data_set = beissinger_data, comparisons_per_job = 1000, job_id = 1, outfile = "beissinger_comparisons")
+#' dparallel(data_set = beissinger_data,
+#'                      comparisons_per_job = 300,
+#'                      job_id = 1,
+#'                      outfile = "beissinger_comparisons")
 #' 
 #' @export
 dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job, job_id, outfile = "Ohta"){
@@ -30,7 +33,7 @@ dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_j
 			a <- a + 1
 		}
 		if (a > ncol(data_set)){               # Truncates the list of comparisons if it goes beyond the possible comparisons.
-			comparisons <- na.omit(comparisons)
+			comparisons <- stats::na.omit(comparisons)
 			break
 		}
 		comparisons[i,] <- c(a,b)
@@ -41,5 +44,5 @@ dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_j
 	#database <- DBI::dbConnect(drv = RSQLite::SQLite(), dbname = paste(outfile, '.sqlite', sep = ''))     #Open database connection
 	#DBI::dbWriteTable(conn = database, name = "OhtasD", value = as.data.frame(results), append = TRUE)    #Dump results into the database
 	#DBI::dbDisconnect(database)                                                                           #Disconnect from database
-	write.csv(results, paste(outfile, "_", as.character(job_id), ".csv", sep = ""), row.names = FALSE)
+	utils::write.csv(results, paste(outfile, "_", as.character(job_id), ".csv", sep = ""), row.names = FALSE)
 }

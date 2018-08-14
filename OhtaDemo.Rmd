@@ -1,7 +1,7 @@
 ---
 title: "OhtaDStat Demo"
 author: "Paul F. Petrowski"
-date: "February 23, 2018"
+date: "August 14, 2018"
 output: html_document
 ---
 
@@ -10,7 +10,6 @@ If you haven't already, install the package using install.packages("ohtadstat")
 ```{r}
 library(ohtadstats)
 data(miyashita_langley_data)
-summary(miyashita_langley_data)
 ```
 
 ## Computation of Ohta's D Statistics for a single Pair of Markers
@@ -24,9 +23,10 @@ The two loci to be evaluated are passed to the index argument as a two element v
 
 ## Computation of Ohta's D statistics for a small dataset.
 If you have a small dataset and would like to compute Ohta's D statistics for each possible pair of loci, use the dwrapper function.
-```{r, include=FALSE}
+```{r}
 dwrap_results <- dwrapper(data_set = miyashita_langley_data, tot_maf = 0.00, pop_maf = 0.00)
-dwrap_results[1:10]
+summary(dwrap_results)
+dwrap_results$dp2is_mat[1:5,1:5]
 ```
 
 Note that the dwrapper algorithm is big O N-squared. The amount of time required to analyze a dataset with dwrapper will increase dramatically with the number of loci. For this reason we recommend not using it except for on datasets less than one thousand loci.
@@ -36,29 +36,6 @@ Anything larger than that should be evaluated using the dparallel workflow as de
 The dheatmap function makes it easy to visualize results from dwrapper. Just pass it a matrix object.
 
 ```{r}
-map <- dheatmap(d_matrix = dwrap_results, )
+map <- dheatmap(d_matrix = dwrap_results$dp2is_mat)
+map
 ```
-
-```{r setup, run=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
