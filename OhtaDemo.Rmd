@@ -2,7 +2,7 @@
 title: "OhtaDStat Demo"
 author: "Paul F. Petrowski"
 date: "August 14, 2018"
-output: html_document
+output: github_document
 ---
 
 ## Setup and Data Import
@@ -39,3 +39,72 @@ The dheatmap function makes it easy to visualize results from dwrapper. Just pas
 map <- dheatmap(d_matrix = dwrap_results$dp2is_mat)
 map
 ```
+
+
+## Parallel processing of a large dataset using dparallel ##
+
+By taking advantage of high throughput computing platforms, datasets that would be intractable using dwrapper can be analyzed in a reasonable amount of time.
+The dparallel function makes it easy to distribute a large job across many threads. \n
+
+Here's how dparallel might be used on a micro level.
+
+```{r}
+dparallel(data_set = miyashita_langley_data, tot_maf = 0, pop_maf = 0, comparisons_per_job = 100, job_id = 1, outfile = "Ohta")
+```
+
+The function computes the first 100 pairwise comparisons to be made and outputs the results to a file named outfile_jobid.csv, in this case that's Ohta_1.csv.
+Let's see what those results look like.
+
+```{r}
+results1 <- read.csv(file = "./Ohta_1.csv", header = TRUE, sep = ",")
+head(results1)
+tail(results1)
+```
+
+Similarly, we can process the second set of 100 comparisons by leaving comparisons_per_job at 100, and setting job_id to 2.
+
+```{r}
+dparallel(data_set = miyashita_langley_data, tot_maf = 0, pop_maf = 0, comparisons_per_job = 100, job_id = 2, outfile = "Ohta")
+results2 <- read.csv(file = "./Ohta_2.csv", header = TRUE, sep = ",")
+head(results2)
+```
+
+Notice that this computation has picked up right where the previous one left off. There is no gap or overlap. \n
+
+Of course, dparallel is not meant to be executed in serial. The advantage to using it that multiple instances can be executed at the same time.
+Consider a simple rscript called examparallel.R.
+
+```{r, eval = FALSE}
+job_id <- commandArgs(TRUE)
+
+data_set = miyashita_langley_data               #Path to your dataset
+tot_maf = 0.1                                   #Minor allele frequency threshold for the total population
+pop_maf = 0.05                                  #Minor allele frequency you would like to use for subpopulations
+comparisons_per_job = 100                       #Number of comparisons each job will perform
+outfile =  "Ohta"                               #Prefix for the file name that results will be written to. Do not include extension. Default is "ohta", which will 
+
+ohtadstats::dparallel(data_set = data_set,
+                      tot_maf = tot_maf,
+                      pop_maf = pop_maf,
+                      comparisons_per_job = comparisons_per_job,
+                      job_id = as.integer(job_id[1]),
+                      outfile = outfile)
+```
+
+
+Using a simple bash for loop, this rscript can be executed by many threads at once on a high throughput computing platform. The bash script
+might look something like this:
+
+```{r, engine='bash', eval = FALSE}
+n=1000        #Number of jobs to be run
+
+for i in `seq 1 n`;
+        do
+                bash Rscript examparallel.R $i;
+        done
+```
+
+
+This script is not likely to work as-is due to various requirements set by the schedulers that run HTC platforms, but the paradigm remains the same.
+For bash code that I use to execute dparallel in parallel, check out the AuxillaryScripts folder in the OhtaDStat GitHub repository. 
+

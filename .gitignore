@@ -35,3 +35,6 @@ vignettes/*.pdf
 
 #HTML files
 *.html
+
+# csv files, presumably from executing OhtaDemo.Rmd
+*.csv
