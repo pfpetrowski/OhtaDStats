@@ -71,7 +71,7 @@ head(results2)
 
 Notice that this computation has picked up right where the previous one left off. There is no gap or overlap. \n
 
-Of course, dparallel is not meant to be executed in serial. The advantage to using it that multiple instances can be executed at the same time.
+Of course, dparallel is not meant to be executed in serial. The advantage to using it is that multiple instances can be executed at the same time.
 Consider a simple rscript called examparallel.R.
 
 ```{r, eval = FALSE}
