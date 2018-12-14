@@ -6,7 +6,7 @@ output: github_document
 ---
 
 ## Setup and Data Import
-If you haven't already, install the package using install.packages("ohtadstat")
+If you haven't already, install the package using install.packages("ohtadstats")
 ```{r}
 library(ohtadstats)
 data(miyashita_langley_data)
