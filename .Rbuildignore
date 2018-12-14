@@ -1,5 +1,7 @@
 ^.*\.html$
 ^.*\.Rmd$
+^.*\.md$
 ^.*\.gz$
-dcollect\..*
+^.*\.csv$
 ^AuxillaryScripts$
+^README_files$
