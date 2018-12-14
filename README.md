@@ -6,7 +6,7 @@ August 14, 2018
 Setup and Data Import
 ---------------------
 
-If you haven't already, install the package using install.packages("ohtadstat")
+If you haven't already, install the package using install.packages("ohtadstats")
 
 ``` r
 library(ohtadstats)
