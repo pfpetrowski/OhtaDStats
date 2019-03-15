@@ -1,7 +1,9 @@
-OhtaDStat Demo
+OhtaDStats Demo
 ================
-Paul F. Petrowski
+Paul F. Petrowski & Timothy M. Beissinger
 August 14, 2018
+
+Contact Paul: <pfpetrowski@mail.missouri.edu>
 
 Setup and Data Import
 ---------------------

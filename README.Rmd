@@ -1,9 +1,10 @@
 ---
-title: "OhtaDStat Demo"
-author: "Paul F. Petrowski"
+title: "OhtaDStats Demo"
+author: "Paul F. Petrowski & Timothy M. Beissinger"
 date: "August 14, 2018"
 output: github_document
 ---
+Contact Paul: pfpetrowski@mail.missouri.edu
 
 ## Setup and Data Import
 If you haven't already, install the package using install.packages("ohtadstats")
