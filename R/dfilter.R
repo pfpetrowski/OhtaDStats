@@ -17,7 +17,9 @@
 #' rownames(test) <- c(rep(c('A','B','C'),each=25), rep(c('D','E'), each=5), rep('F', 15))
 #' dim(test)
 #'
-#' filtered_test <- dfilter(test,12)	#The 'D' and 'E' subpopulations have only five members each and should be removed
+#' #The 'D' and 'E' subpopulations have only five members each and should be removed
+#' filtered_test <- dfilter(test,12)
+#' 
 #' dim(filtered_test)	# New dataset is reduced by 10 rows (five for 'D' and five for 'E')
 #' 
 #' @export
