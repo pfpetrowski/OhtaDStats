@@ -14,12 +14,14 @@
 #' 
 #' 
 #' @examples 
+#' \dontrun{
 #' data(beissinger_data)
 #' dparallel(data_set = beissinger_data,
 #'                      comparisons_per_job = 300,
 #'                      job_id = 1,
 #'                      outfile = "beissinger_comparisons")
 #' 
+#' }
 #' @export
 dparallel <- function(data_set, tot_maf = 0.1, pop_maf = 0.05, comparisons_per_job, job_id, outfile = "Ohta"){
 	# data_set will need to be an rds that is loaded in
