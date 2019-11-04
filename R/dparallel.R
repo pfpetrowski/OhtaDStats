@@ -15,6 +15,7 @@
 #' 
 #' @examples 
 #' \dontrun{
+#' setwd(temdir())
 #' data(beissinger_data)
 #' dparallel(data_set = beissinger_data,
 #'                      comparisons_per_job = 300,
