@@ -15,12 +15,12 @@
 #' 
 #' @examples 
 #' \dontrun{
-#' setwd(temdir())
+#' 
 #' data(beissinger_data)
 #' dparallel(data_set = beissinger_data,
 #'                      comparisons_per_job = 300,
 #'                      job_id = 1,
-#'                      outfile = "beissinger_comparisons")
+#'                      outfile = tempfile("beissinger_comparisons",tmpdir = tempdir()))
 #' 
 #' }
 #' @export
