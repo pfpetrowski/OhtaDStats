@@ -20,7 +20,7 @@
 #' dparallel(data_set = beissinger_data,
 #'                      comparisons_per_job = 300,
 #'                      job_id = 1,
-#'                      outfile = tempfile())
+#'                      outfile = "beissinger_comparison")
 #' 
 #' }
 #' @export

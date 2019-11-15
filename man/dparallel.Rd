@@ -29,6 +29,6 @@ data(beissinger_data)
 dparallel(data_set = beissinger_data,
                      comparisons_per_job = 300,
                      job_id = 1,
-                     outfile = "beissinger_comparisons")
+                     outfile = tempfile(pattern = "beissinger_comparison", tmpdir = tempdir()))
 
 }
