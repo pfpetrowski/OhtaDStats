@@ -3,7 +3,7 @@ OhtaDStats Demo
 Paul F. Petrowski & Timothy M. Beissinger
 August 14, 2018
 
-Contact Paul: <pfpetrowski@mail.missouri.edu>
+Contact Paul: <pfpetrowski@gmail.com>
 
 Setup and Data Import
 ---------------------
